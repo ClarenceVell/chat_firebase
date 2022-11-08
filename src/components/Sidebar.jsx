@@ -3,12 +3,12 @@ import Navbar from './Navbar'
 import Search from './Search'
 import Chats from './Chats'
 
-function Sidebar({ width }) {
+function Sidebar({ width, isSelected, setIsSelected }) {
   return (
-    <div className='sidebar' style={ width < 490 ? {display: 'block'} : {}}>
+    <div className='sidebar' style={ width < 490 && isSelected === false ? {display: 'block'} : width < 490 ? {display: 'none'} : {}}>
       <Navbar />
       <Search />
-      <Chats />
+      <Chats setIsSelected={setIsSelected} />
     </div>
   )
 }

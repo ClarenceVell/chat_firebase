@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Toaster } from "react-hot-toast";
 import { AuthContext } from "./context/AuthContext";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -10,8 +11,6 @@ import "./style.scss"
 function App() {
 
   const {currentUser} = useContext(AuthContext)
-
-  console.log(currentUser)
 
   const [dimension, setDimension] = useState({
     width: window.innerWidth,
@@ -55,6 +54,13 @@ function App() {
           <Route path="register" element={<Register />} />
         </Route>
       </Routes>
+
+      <Toaster toastOptions={{
+        position: 'top-center',
+        style: {
+          fontSize: '1rem'
+        }
+      }} />
     </BrowserRouter>
   )
 }

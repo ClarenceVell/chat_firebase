@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import Add from '../assets/img/addAvatar.png'
+import toast from 'react-hot-toast'
+import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../firebase'
 
 function Login() {
@@ -13,13 +13,18 @@ function Login() {
     const email = e.target[0].value
     const password = e.target[1].value
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/")
-
-    } catch (error) {
-      setErr(true)
+    if(email && password){
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate("/")
+  
+      } catch (error) {
+        setErr(true)
+      }
+    } else{
+      toast.error('All the input must be filled!')
     }
+
 
   }
 
@@ -27,7 +32,7 @@ function Login() {
     <div className='formContainer'>
 
         <div className="formWrapper">
-            <span className="logo">Vells Chat</span>
+            <span className="logo">Whats Chat</span>
             <span className="title">Login</span>
             <form onSubmit={handleSubmit}>
                 <input type="email" placeholder='email'/>
@@ -36,10 +41,7 @@ function Login() {
                 <button>Sign in</button>
                 {err && <span>Something went wrong</span>}
             </form>
-            <p>
-              You don't have an account ?&nbsp;
-              <span style={{cursor: 'pointer'}}>Register</span>
-            </p>
+            <p>You don't have an account? <Link to="/register">Register</Link></p>
         </div>
 
     </div>
